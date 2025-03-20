@@ -1,4 +1,5 @@
 using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Presentation
@@ -12,11 +13,14 @@ namespace Demo.Presentation
 
             #region Add services to the container
             builder.Services.AddControllersWithViews();
-            //builder.Services.AddScoped<ApplicationDbContext>(); // 2.Register to Service in DI Injection
+            //builder.Services.AddScoped<ApplicationDbContext>(); // 2.Register to Service in DI Container
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            //builder.Services.AddScoped<DepartmentRepository>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             #endregion
 
             var app = builder.Build();
