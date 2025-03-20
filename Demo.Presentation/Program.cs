@@ -1,3 +1,6 @@
+using Demo.DataAccess.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace Demo.Presentation
 {
     public class Program
@@ -9,7 +12,11 @@ namespace Demo.Presentation
 
             #region Add services to the container
             builder.Services.AddControllersWithViews();
-
+            //builder.Services.AddScoped<ApplicationDbContext>(); // 2.Register to Service in DI Injection
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
             #endregion
 
             var app = builder.Build();
