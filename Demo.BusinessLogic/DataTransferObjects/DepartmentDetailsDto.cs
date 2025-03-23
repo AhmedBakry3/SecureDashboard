@@ -27,7 +27,7 @@ namespace Demo.BusinessLogic.DataTransferObjects
         public string Name { get; set; }
         public string Code { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public DateOnly CreatedOn { get; set; }
+        public DateOnly DateOfCreation { get; set; }
         public DateOnly LastModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
         public int CreatedBy { get; set; }

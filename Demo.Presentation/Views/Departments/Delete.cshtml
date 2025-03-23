@@ -1,11 +1,9 @@
 ﻿@model DepartmentDetailsDto
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
-
-<h1 class="my-5 w-75">Department Details</h1>
-
+<h1 class="my-5 m-auto">Delete Department</h1>
 
 <ul class="nav nav-tabs" id="departmentTabs" role="tablist">
     <li class="nav-item" role="presentation">
@@ -48,7 +46,7 @@
             <input asp-for="CreatedBy" class="form-control" readonly />
         </div>
         <div class="form-group  col-12">
-            <label class="col-form-label">CreatedOn</label>
+            <label class="col-form-label" asp-for="DateOfCreation"></label>
             <input asp-for="DateOfCreation" class="form-control" readonly />
         </div>
         <div class="form-group  col-12">
@@ -60,10 +58,12 @@
             <input asp-for="LastModifiedOn" class="form-control" readonly />
         </div>
     </div>
+
     <div class="mt-4">
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
-        <a asp-action="Index" class="btn btn-outline-dark">Back To list</a>
+        <form method="post" asp-controller="Departments" asp-action="Delete" asp-route-id="@Model.Id">
+            <input type="submit" class="btn btn-danger" value="OK" />
+            <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+        </form>
     </div>
 </div>
-
 

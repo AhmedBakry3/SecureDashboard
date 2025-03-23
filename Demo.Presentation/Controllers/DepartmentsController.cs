@@ -85,7 +85,7 @@ namespace Demo.Presentation.Controllers
                 Name = Department.Name,
                 Code = Department.Code,
                 Description = Department.Description,
-                DateOfCreation = Department.CreatedOn
+                DateOfCreation = Department.DateOfCreation
             };
             return View(DepartmentViewModel) ;
         }
@@ -105,8 +105,8 @@ namespace Demo.Presentation.Controllers
                         Description = viewModel.Description,
                         DateOfCreation = viewModel.DateOfCreation
                     };
-                    int Resullt = _departmentService.UpdateDepartment(UpdatedDepartment);
-                    if (Resullt > 0)
+                    int Result = _departmentService.UpdateDepartment(UpdatedDepartment);
+                    if (Result > 0)
                     {
                         return RedirectToAction(nameof(Index));
                     }
@@ -132,6 +132,56 @@ namespace Demo.Presentation.Controllers
                 }
             }
             return View(viewModel);
+        }
+        #endregion
+
+        #region Delete Department
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (!id.HasValue) return BadRequest(); //400
+            var Department = _departmentService.GetDepartmentByID(id.Value);
+            if (Department is null) return NotFound(); //404
+            else return View(Department);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if(id == 0) return BadRequest();
+            try
+            { 
+                    bool IsDeleted = _departmentService.DeleteDepartment(id);
+                    if (IsDeleted)
+                        return RedirectToAction(nameof(Index));
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Department is not Deleted");
+                        return RedirectToAction(nameof(Delete), new { id });
+                    }
+                
+            }
+
+            catch (Exception ex)
+            {
+
+                if (_environment.IsDevelopment())
+                {
+                    //1. Development => Log Error in console and Return same view with error message
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {
+                    //2. Deployment => Log Error in File | Table in Database and return view Error 
+                    _logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+            }
+
+
         }
         #endregion
     }

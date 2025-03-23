@@ -32,7 +32,7 @@ namespace Demo.BusinessLogic.Factories
                 Description = department.Description,
                 IsDeleted = department.IsDeleted,
                 CreatedBy = department.CreatedBy,
-                CreatedOn = DateOnly.FromDateTime(department.CreatedOn),
+                DateOfCreation = DateOnly.FromDateTime(department.CreatedOn),
                 LastModifiedBy = department.LastModifiedBy,
                 LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn)
             };
