@@ -1,14 +1,8 @@
-﻿using Demo.BusinessLogic.DataTransferObjects;
-using Demo.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Demo.BusinessLogic.Factories
 {
-     static class DepartmentFactory
+    static class DepartmentFactory
     {
         public static DepartmentDto ToDepartmentDto(this Department D)
         {
@@ -32,7 +26,7 @@ namespace Demo.BusinessLogic.Factories
                 Description = department.Description,
                 IsDeleted = department.IsDeleted,
                 CreatedBy = department.CreatedBy,
-                CreatedOn = DateOnly.FromDateTime(department.CreatedOn),
+                DateOfCreation = DateOnly.FromDateTime(department.CreatedOn),
                 LastModifiedBy = department.LastModifiedBy,
                 LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn)
             };
@@ -52,6 +46,7 @@ namespace Demo.BusinessLogic.Factories
         {
             return new Department()
             {
+                Id = departmentDto.Id,
                 Name = departmentDto.Name,
                 Code = departmentDto.code,
                 Description = departmentDto.Description,

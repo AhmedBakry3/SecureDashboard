@@ -1,9 +1,8 @@
-﻿
-namespace Demo.DataAccess.Models
+﻿namespace Demo.DataAccess.Models.Shared
 {
     public class BaseEntity
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public int CreatedBy { get; set; } // User Id
         public DateTime CreatedOn { get; set; }
         public int LastModifiedBy { get; set; } // User Id
