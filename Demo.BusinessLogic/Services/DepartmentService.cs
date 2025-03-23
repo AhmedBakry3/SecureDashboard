@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Demo.BusinessLogic.Services
 {
-    internal class DepartmentService(IDepartmentRepository _departmentRepository)
+    public  class DepartmentService(IDepartmentRepository _departmentRepository) : IDepartmentService
     {
 
         //Get All Departments
@@ -34,19 +34,19 @@ namespace Demo.BusinessLogic.Services
         }
 
         //Add Department 
-        public int Add(CreatedDepartmentDto departmentDto)
+        public int AddDepartment(CreatedDepartmentDto departmentDto)
         {
             var Department = departmentDto.ToEntity();
             return _departmentRepository.Add(Department);
         }
         //Update Department
-        public int Update(UpdatedDepartmentDto departmentDto)
+        public int UpdateDepartment(UpdatedDepartmentDto departmentDto)
         { 
            return _departmentRepository.Update(departmentDto.ToEntity());
         }
 
         //Delete Department
-        public bool Remove(int id) 
+        public bool DeleteDepartment(int id) 
         {
             var Department = _departmentRepository.GetById(id);
 
