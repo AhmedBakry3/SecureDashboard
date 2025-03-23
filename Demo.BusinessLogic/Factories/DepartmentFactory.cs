@@ -52,6 +52,7 @@ namespace Demo.BusinessLogic.Factories
         {
             return new Department()
             {
+                Id = departmentDto.Id,
                 Name = departmentDto.Name,
                 Code = departmentDto.code,
                 Description = departmentDto.Description,
