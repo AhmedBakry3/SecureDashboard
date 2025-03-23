@@ -1,13 +1,7 @@
-﻿using Demo.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Demo.BusinessLogic.DataTransferObjects
+﻿
+namespace Demo.BusinessLogic.DataTransferObjects.DepartmentDto
 {
-  
+
     public class DepartmentDetailsDto
     {
         //Constructor -- Based Mapping
@@ -31,7 +25,7 @@ namespace Demo.BusinessLogic.DataTransferObjects
         public DateOnly LastModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
         public int CreatedBy { get; set; }
-        public int LastModifiedBy { get; set; } 
+        public int LastModifiedBy { get; set; }
 
 
 
