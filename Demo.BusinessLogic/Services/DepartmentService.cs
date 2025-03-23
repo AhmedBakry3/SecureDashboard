@@ -1,6 +1,6 @@
 ﻿using Demo.BusinessLogic.DataTransferObjects;
 using Demo.BusinessLogic.Factories;
-using Demo.DataAccess.Repositories;
+using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
