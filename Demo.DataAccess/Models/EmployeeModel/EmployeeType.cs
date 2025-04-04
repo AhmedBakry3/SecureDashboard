@@ -9,6 +9,7 @@ namespace Demo.DataAccess.Models.EmployeeModel
     public enum EmployeeType
     {
         PartTime = 1, 
-        FullTime = 2
+        FullTime = 2,
+        Remote = 3
     }
 }
