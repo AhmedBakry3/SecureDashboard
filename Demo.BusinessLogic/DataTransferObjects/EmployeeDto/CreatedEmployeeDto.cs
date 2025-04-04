@@ -8,7 +8,7 @@ namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDto
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
         [MinLength(5, ErrorMessage = "Min length should be 5 characters")]
         public string Name { get; set; } = null!;
-        [Range(22, 30)]
+        [Range(22, 35)]
         public int? Age { get; set; }
         [RegularExpression("^[1-9]{1,3}-[a-zA-Z]{5,10}-[a-zA-Z]{5,10}-[a-zA-Z]{5,10}$",
            ErrorMessage = "Address must be like 123-Street-City-Country")]
