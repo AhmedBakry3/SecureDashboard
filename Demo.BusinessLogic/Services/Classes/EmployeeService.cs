@@ -13,8 +13,15 @@ namespace Demo.BusinessLogic.Services.Classes
         }
         public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking)
         {
-            var Employees = _employeeRepository.GetAll(WithTracking);
-            var EmployeeDto = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
+            var EmployeeDto = _employeeRepository.GetAll(E=> new EmployeeDto()
+            {
+                Id = E.Id,
+                Name = E.Name,
+                Salary = E.Salary,
+                Age = E.Age,    
+            }).Where(E=>E.Age >20);
+            //var Employees = _employeeRepository.GetAll(WithTracking);
+            //var EmployeeDto = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
             return EmployeeDto;
         }
 
