@@ -1,45 +1,44 @@
 ﻿
+
+using AutoMapper;
+
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmployeeService
+    public class EmployeeService(IEmployeeRepository _employeeRepository , IMapper _Mapper) : IEmployeeService
     {
-        //Create Employee
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
-            return _employeeRepository.Add(employeeDto.ToEntity());  
+            var Employee = _Mapper.Map<CreatedEmployeeDto , Employee>(employeeDto);
+            return _employeeRepository.Add(Employee);
         }
-
-        //Delete Employee
-        public bool DeleteEmployee(int id)
+        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking)
         {
-            var Employee = _employeeRepository.GetById(id);
-            if (Employee is null) return false;
-            else
-            {
-                int Result = _employeeRepository.Remove(Employee);
-                return Result > 0 ? true : false;  
-            }
+            var Employees = _employeeRepository.GetAll(WithTracking);
+            var EmployeeDto = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
+            return EmployeeDto;
         }
 
-        //Get All Employees
-        public IEnumerable<EmployeeDto> GetAllEmployees()
-        {
-            var Employees = _employeeRepository.GetAll();
-            return Employees.Select(E=>E.ToEmployeesDto());
-        }
-
-        //Get Employee By Id
         public EmployeeDetailsDto? GetEmployeeByID(int id)
         {
             var Employee = _employeeRepository.GetById(id);
-            return Employee is null ? null : Employee.ToEmployeeDetailsDto();
+            return Employee is null ? null : _Mapper.Map<Employee, EmployeeDetailsDto>(Employee);
         }
 
-        //Update Employee
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
-            return _employeeRepository.Update(employeeDto.ToEntity());
+            var Employee = _Mapper.Map<UpdatedEmployeeDto , Employee>(employeeDto);
+            return _employeeRepository.Update(Employee);
+        }
 
+        public bool DeleteEmployee(int id)
+        {
+            var Employee = _employeeRepository.GetById(id);
+            if(Employee is null) return false;
+            else
+            {
+                Employee.IsDeleted = true;
+                return _employeeRepository.Update(Employee) > 0 ? true : false;
+            }
         }
     }
 }
