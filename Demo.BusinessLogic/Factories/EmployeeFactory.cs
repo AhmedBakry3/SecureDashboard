@@ -37,7 +37,7 @@ namespace Demo.BusinessLogic.Factories
             };
         }
         //Create Employee
-        public static Employee ToEntity(this CreateEmployeeDto employeeDto)
+        public static Employee ToEntity(this CreatedEmployeeDto employeeDto)
         {
             return new Employee()
             {

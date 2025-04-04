@@ -2,7 +2,7 @@
 
 namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDto
 {
-    public class CreateEmployeeDto
+    public class CreatedEmployeeDto
     {
         public string Name { get; set; } =string.Empty; 
         public int Age { get; set; }

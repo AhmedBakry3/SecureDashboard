@@ -5,7 +5,7 @@ namespace Demo.BusinessLogic.Services.Interfaces
     {
         int CreateEmployee(CreateEmployeeDto employeeDto);
         bool DeleteEmployee(int id);
-        IEnumerable<EmployeeDto> GetAllEmployees();
+        IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking );
         EmployeeDetailsDto? GetEmployeeByID(int id);
         int UpdateEmployee(UpdatedEmployeeDto employeeDto);
     }

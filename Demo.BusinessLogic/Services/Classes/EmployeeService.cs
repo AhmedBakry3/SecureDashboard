@@ -4,7 +4,7 @@ namespace Demo.BusinessLogic.Services.Classes
     public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmployeeService
     {
         //Create Employee
-        public int CreateEmployee(CreateEmployeeDto employeeDto)
+        public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
             return _employeeRepository.Add(employeeDto.ToEntity());  
         }
