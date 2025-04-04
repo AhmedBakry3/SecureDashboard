@@ -126,5 +126,42 @@ namespace Demo.Presentation.Controllers
             return View(employeeDto);
         }
         #endregion
+
+        #region Delete Employee
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool IsDeleted = _EmployeeService.DeleteEmployee(id);
+                if (IsDeleted)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Employee is not Deleted");
+                    return RedirectToAction(nameof(Delete), new { id });
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+
+                if (_environment.IsDevelopment())
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {
+                    _logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+            }
+        }
+            #endregion
+        }
     }
-}
