@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Demo.DataAccess.Repositories.Classes
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork 
     {
-        private IEmployeeRepository _employeeRepository;
-        private IDepartmentRepository _departmentRepository;
+        private readonly Lazy<IEmployeeRepository>  _employeeRepository;
+        private readonly Lazy<IDepartmentRepository> _departmentRepository;
         private readonly ApplicationDbContext _dbContext;
 
-        public UnitOfWork(IDepartmentRepository departmentRepository , IEmployeeRepository employeeRepository , ApplicationDbContext applicationDbContext) 
+        public UnitOfWork(ApplicationDbContext applicationDbContext) 
         {
-            _employeeRepository = employeeRepository;
-            _departmentRepository = departmentRepository;
             _dbContext = applicationDbContext;
+            _employeeRepository = new Lazy<IEmployeeRepository>(() => new EmployeeRepository(_dbContext));
+            _departmentRepository = new Lazy<IDepartmentRepository>(() => new DepartmentRepository(_dbContext));
         }
-        public IEmployeeRepository EmployeeRepository => _employeeRepository;
+        public IEmployeeRepository EmployeeRepository => _employeeRepository.Value;
 
-        public IDepartmentRepository DepartmentRepository => _departmentRepository;
+        public IDepartmentRepository DepartmentRepository => _departmentRepository.Value;
 
         public int SaveChanges()
         {
