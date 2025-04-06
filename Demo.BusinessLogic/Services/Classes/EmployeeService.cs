@@ -11,10 +11,14 @@ namespace Demo.BusinessLogic.Services.Classes
             var Employee = _Mapper.Map<CreatedEmployeeDto , Employee>(employeeDto);
             return _employeeRepository.Add(Employee);
         }
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking)
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
-            var Employees = _employeeRepository.GetAll(WithTracking);
-            var EmployeeDto = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(EmployeeSearchName))
+                employees = _employeeRepository.GetAll();
+            else
+                employees = _employeeRepository.GetAll(E=>E.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+            var EmployeeDto = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return EmployeeDto;
         }
 

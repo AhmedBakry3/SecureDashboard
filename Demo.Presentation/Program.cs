@@ -29,7 +29,7 @@ namespace Demo.Presentation
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
                 options.UseLazyLoadingProxies();
 
-            });
+            } );
 
             //builder.Services.AddScoped<DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();

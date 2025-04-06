@@ -25,6 +25,11 @@ namespace Demo.DataAccess.Repositories.Classes
             return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true)
                                             .Select(Selector).ToList();
         }
+
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicate)
+        {
+            return _dbContext.Set<TEntity>().Where(Predicate).ToList();
+        }
         //Get By Id
         public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
 
@@ -49,6 +54,6 @@ namespace Demo.DataAccess.Repositories.Classes
             return _dbContext.SaveChanges();
         }
 
-
+      
     }
 }
