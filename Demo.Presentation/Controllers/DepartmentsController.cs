@@ -26,21 +26,29 @@ namespace Demo.Presentation.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken] //Action Filter
-        public IActionResult Create(CreatedDepartmentDto departmentDto) 
+        public IActionResult Create(DepartmentViewModel departmentViewModel) 
         {
             if (ModelState.IsValid) //Server-Side Validation
             {
                 try
                 {
-                  int Result =  _departmentService.AddDepartment(departmentDto);
-                    if(Result > 0)
+                    var DepartmentDto = new CreatedDepartmentDto()
                     {
-                        return RedirectToAction("Index");
-                    }
+                        Code = departmentViewModel.Code,
+                        Name = departmentViewModel.Name,
+                        DateOfCreation = departmentViewModel.DateOfCreation,
+                        Description = departmentViewModel.Description,
+                    };
+
+                  int Result =  _departmentService.AddDepartment(DepartmentDto);
+                    string message;
+                    if (Result > 0)
+                        message = $"Department {departmentViewModel.Name} Is Created successfully";
                     else
-                    {
-                        ModelState.AddModelError(string.Empty , "Department Can't Be Created");
-                    }
+                        message = $"Department {departmentViewModel.Name} Can't Be Created";
+
+                    TempData["Message"] = message ;
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
@@ -57,7 +65,7 @@ namespace Demo.Presentation.Controllers
                 }
             
             }
-            return View(departmentDto);
+            return View(departmentViewModel);
         }
 
         #endregion
@@ -82,7 +90,7 @@ namespace Demo.Presentation.Controllers
             if (!id.HasValue) return BadRequest(); 
             var Department = _departmentService.GetDepartmentByID(id.Value);
             if (Department is null) return NotFound();
-            var DepartmentViewModel = new DepartmentEditViewModel()
+            var DepartmentViewModel = new DepartmentViewModel()
             {
                 Name = Department.Name,
                 Code = Department.Code,
@@ -93,7 +101,7 @@ namespace Demo.Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id, DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute]int id, DepartmentViewModel viewModel)
         {
             try
             {
