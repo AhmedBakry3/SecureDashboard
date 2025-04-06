@@ -44,6 +44,7 @@ namespace Demo.Presentation.Controllers
                         IsActive = employeeViewModel.IsActive,
                         Salary  = employeeViewModel.Salary,
                         PhoneNumber = employeeViewModel.PhoneNumber,
+                        DepartmentId = employeeViewModel.DepartmentId
                     };
                     int Result = _EmployeeService.CreateEmployee(EmployeeDto);
                     if (Result > 0)
@@ -107,13 +108,14 @@ namespace Demo.Presentation.Controllers
         [HttpPost]
         public IActionResult Edit([FromRoute]int? id , EmployeeViewModel employeeViewModel)
         {
-            if(!id.HasValue || id!= employeeViewModel.Id) return BadRequest();
+            if(!id.HasValue) return BadRequest();
             if (!ModelState.IsValid) return View(employeeViewModel);
             else
                 try
                 {
                     var EmployeeDto = new UpdatedEmployeeDto()
                     {
+                        Id= id.Value,
                         Name = employeeViewModel.Name,
                         Email = employeeViewModel.Email,
                         EmployeeType = employeeViewModel.EmployeeType,
@@ -124,6 +126,7 @@ namespace Demo.Presentation.Controllers
                         IsActive = employeeViewModel.IsActive,
                         Salary = employeeViewModel.Salary,
                         PhoneNumber = employeeViewModel.PhoneNumber,
+                        DepartmentId = employeeViewModel.DepartmentId
                     };
                     var Result = _EmployeeService.UpdateEmployee(EmployeeDto);
                     if (Result > 0)
