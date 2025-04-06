@@ -102,6 +102,7 @@ namespace Demo.Presentation.Controllers
                 IsActive = Employee.IsActive,
                 Salary = Employee.Salary,
                 PhoneNumber = Employee.PhoneNumber,
+                DepartmentId = Employee.DepartmentId,
             };
             return View(EmployeeViewModel);
         }
