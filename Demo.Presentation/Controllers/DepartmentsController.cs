@@ -26,13 +26,20 @@ namespace Demo.Presentation.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken] //Action Filter
-        public IActionResult Create(CreatedDepartmentDto departmentDto) 
+        public IActionResult Create(DepartmentViewModel departmentViewModel) 
         {
             if (ModelState.IsValid) //Server-Side Validation
             {
                 try
                 {
-                  int Result =  _departmentService.AddDepartment(departmentDto);
+                    var DepartmentDto = new CreatedDepartmentDto()
+                    {
+                        Code = departmentViewModel.Code,
+                        Name = departmentViewModel.Name,
+                        DateOfCreation = departmentViewModel.DateOfCreation,
+                        Description = departmentViewModel.Description,
+                    };
+                  int Result =  _departmentService.AddDepartment(DepartmentDto);
                     if(Result > 0)
                     {
                         return RedirectToAction("Index");
@@ -57,7 +64,7 @@ namespace Demo.Presentation.Controllers
                 }
             
             }
-            return View(departmentDto);
+            return View(departmentViewModel);
         }
 
         #endregion
@@ -82,7 +89,7 @@ namespace Demo.Presentation.Controllers
             if (!id.HasValue) return BadRequest(); 
             var Department = _departmentService.GetDepartmentByID(id.Value);
             if (Department is null) return NotFound();
-            var DepartmentViewModel = new DepartmentEditViewModel()
+            var DepartmentViewModel = new DepartmentViewModel()
             {
                 Name = Department.Name,
                 Code = Department.Code,
@@ -93,7 +100,7 @@ namespace Demo.Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id, DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute]int id, DepartmentViewModel viewModel)
         {
             try
             {
