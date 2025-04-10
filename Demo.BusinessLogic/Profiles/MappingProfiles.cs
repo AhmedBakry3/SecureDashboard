@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,8 @@ namespace Demo.BusinessLogic.Profiles
                   .ForMember(Dest => Dest.Gender, Options => Options.MapFrom(Src => Src.Gender))
                   .ForMember(Dest => Dest.EmployeeType, Options => Options.MapFrom(Src => Src.EmployeeType))
                   .ForMember(Dest => Dest.HiringDate, Options => Options.MapFrom(Src => DateOnly.FromDateTime(Src.HiringDate)))
-                                    .ForMember(Dest => Dest.Department, Options => Options.MapFrom(Src => Src.Department != null ? Src.Department.Name : null));
+                  .ForMember(Dest => Dest.Department, Options => Options.MapFrom(Src => Src.Department != null ? Src.Department.Name : null))
+                  .ForMember(Dest => Dest.Image, Options => Options.MapFrom(Src => Src.ImageName));
 
 
             CreateMap<CreatedEmployeeDto, Employee>()
@@ -28,7 +30,6 @@ namespace Demo.BusinessLogic.Profiles
 
             CreateMap<UpdatedEmployeeDto, Employee>()
                    .ForMember(Dest => Dest.HiringDate, Options => Options.MapFrom(Src => Src.HiringDate.ToDateTime(TimeOnly.MinValue)));
-
 
         }
     }

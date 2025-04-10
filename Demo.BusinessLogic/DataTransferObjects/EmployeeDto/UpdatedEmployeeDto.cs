@@ -31,6 +31,7 @@ namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDto
 
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
+        public string? Image {  get; set; }
 
     }
 }
