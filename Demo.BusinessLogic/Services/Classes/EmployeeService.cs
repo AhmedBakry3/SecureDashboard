@@ -1,10 +1,11 @@
 ﻿
 
 using AutoMapper;
+using Demo.BusinessLogic.Services.AttachmentService;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeService(IUnitOfWork _unitOfWork , IMapper _Mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitOfWork , IMapper _Mapper , IAttachmentService _attachmentService) : IEmployeeService
     {
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
