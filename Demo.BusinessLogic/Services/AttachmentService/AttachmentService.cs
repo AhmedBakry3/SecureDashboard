@@ -38,7 +38,6 @@ namespace Demo.BusinessLogic.Services.AttachmentService
 
             //7.Use Stream To Copy File
             file.CopyTo(Fs);
-            File.Create(FilePath);
             //8.Return FileName To Store In Database
             return FileName;
 

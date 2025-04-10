@@ -44,7 +44,8 @@ namespace Demo.Presentation.Controllers
                         IsActive = employeeViewModel.IsActive,
                         Salary  = employeeViewModel.Salary,
                         PhoneNumber = employeeViewModel.PhoneNumber,
-                        DepartmentId = employeeViewModel.DepartmentId
+                        DepartmentId = employeeViewModel.DepartmentId,
+                        Image = employeeViewModel.Image,
                     };
                     int Result = _EmployeeService.CreateEmployee(EmployeeDto);
                     if (Result > 0)
@@ -103,6 +104,7 @@ namespace Demo.Presentation.Controllers
                 Salary = Employee.Salary,
                 PhoneNumber = Employee.PhoneNumber,
                 DepartmentId = Employee.DepartmentId,
+     
             };
             return View(EmployeeViewModel);
         }
@@ -127,7 +129,7 @@ namespace Demo.Presentation.Controllers
                         IsActive = employeeViewModel.IsActive,
                         Salary = employeeViewModel.Salary,
                         PhoneNumber = employeeViewModel.PhoneNumber,
-                        DepartmentId = employeeViewModel.DepartmentId
+                        DepartmentId = employeeViewModel.DepartmentId,
                     };
                     var Result = _EmployeeService.UpdateEmployee(EmployeeDto);
                     if (Result > 0)
