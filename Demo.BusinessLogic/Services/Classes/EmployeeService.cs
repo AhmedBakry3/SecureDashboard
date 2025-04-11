@@ -1,14 +1,22 @@
 ﻿
 
 using AutoMapper;
+using Demo.BusinessLogic.Services.AttachmentService;
+using Demo.DataAccess.Models.EmployeeModel;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeService(IUnitOfWork _unitOfWork , IMapper _Mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitOfWork , IMapper _Mapper , IAttachmentService _attachmentService) : IEmployeeService
     {
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
             var Employee = _Mapper.Map<CreatedEmployeeDto , Employee>(employeeDto);
+
+            if (employeeDto is not null)
+            {
+               Employee.ImageName = _attachmentService.Upload(employeeDto.Image, "Images");
+            }
              _unitOfWork.EmployeeRepository.Add(Employee); //Add Locally
             //insert
             //Update
@@ -35,7 +43,7 @@ namespace Demo.BusinessLogic.Services.Classes
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
             var Employee = _Mapper.Map<UpdatedEmployeeDto , Employee>(employeeDto);
-             _unitOfWork.EmployeeRepository.Update(Employee); //Add Locally
+            _unitOfWork.EmployeeRepository.Update(Employee); //Add Locally
             return _unitOfWork.SaveChanges();
         }
 
