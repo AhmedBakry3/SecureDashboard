@@ -77,5 +77,11 @@ namespace Demo.Presentation.Controllers
         #endregion
 
         //Sign Out
+        [HttpGet]
+        public IActionResult SignOut()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
     }
 }
