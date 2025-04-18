@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
 {
+    [Authorize]
     public class EmployeesController(IEmployeeService _EmployeeService,
         IWebHostEnvironment _environment,
         ILogger<EmployeesController> _logger) : Controller

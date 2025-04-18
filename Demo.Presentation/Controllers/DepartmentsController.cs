@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
-{   
+{
+    [Authorize]   
+    
     public class DepartmentsController(IDepartmentService _departmentService,
         ILogger<DepartmentsController> _logger,
         IWebHostEnvironment _environment) : Controller
