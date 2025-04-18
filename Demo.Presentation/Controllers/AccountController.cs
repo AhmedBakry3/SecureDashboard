@@ -1,4 +1,5 @@
 ﻿using Demo.DataAccess.Models.IdentityModel;
+using Demo.Presentation.Utilities;
 using Demo.Presentation.ViewModels.AccountViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -39,8 +40,9 @@ namespace Demo.Presentation.Controllers
             }
         }
         #endregion
-        //Login
+
         #region Login Action
+        //Login
         [HttpGet]
         public IActionResult Login() => View();
 
@@ -76,12 +78,45 @@ namespace Demo.Presentation.Controllers
         }
         #endregion
 
+        #region SignOut Action
         //Sign Out
         [HttpGet]
         public IActionResult SignOut()
         {
-            _signInManager.SignOutAsync();
+            _signInManager.SignOutAsync().GetAwaiter().GetResult();
             return RedirectToAction(nameof(Login));
         }
+        #endregion
+
+        #region Forget Password Action
+
+        [HttpGet]
+        public IActionResult ForgetPassword() => View();
+
+        [HttpPost]
+        public IActionResult SendResetPasswordLink(ForgetPasswordViewModel viewModel)
+        {
+         if (ModelState.IsValid)
+            {
+                var User = _userManager.FindByEmailAsync(viewModel.Email).Result;
+                if(User is not null)
+                {
+                    var Email = new Email()
+                    {
+                        To = viewModel.Email,
+                        Subject = "Reset Password",
+                        Body = "Reset Password Link" //TODO
+                    };
+                    //SendEmail
+                }
+            }
+         
+            ModelState.AddModelError(string.Empty, "Invalid Operation");
+
+            return View(nameof(ForgetPassword),viewModel);
+
+
+        }
+        #endregion
     }
 }
