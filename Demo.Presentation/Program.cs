@@ -47,7 +47,8 @@ namespace Demo.Presentation
             builder.Services.AddScoped<IUnitOfWork ,UnitOfWork>();
             builder.Services.AddTransient<IAttachmentService, AttachmentService>();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             #endregion
 
