@@ -3,10 +3,11 @@ using Demo.BusinessLogic.DataTransferObjects.DepartmentDto;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Models;
 using Demo.Presentation.ViewModels.DepartmentViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
-{
+{   
     public class DepartmentsController(IDepartmentService _departmentService,
         ILogger<DepartmentsController> _logger,
         IWebHostEnvironment _environment) : Controller

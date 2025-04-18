@@ -2,10 +2,11 @@
 using Demo.Presentation.ViewModels.AccountViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.WebSockets;
 
 namespace Demo.Presentation.Controllers
 {
-    public class AccountController(UserManager<ApplicationUser> _userManager) : Controller
+    public class AccountController(UserManager<ApplicationUser> _userManager , SignInManager<ApplicationUser> _signInManager) : Controller
     {
         #region Register Action
         [HttpGet]
@@ -39,6 +40,38 @@ namespace Demo.Presentation.Controllers
         }
         #endregion
         //Login
+        #region Login Action
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return View(viewModel);
+            else
+            {
+                var User = _userManager.FindByEmailAsync(viewModel.Email).GetAwaiter().GetResult();
+                if (User is not null)
+                {
+                    var Flag = _userManager.CheckPasswordAsync(User, viewModel.Password).GetAwaiter().GetResult();
+
+                    if (Flag)
+                    {
+                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid Login!");
+                        return View(viewModel);
+                    }
+
+                }
+                return View(viewModel);
+
+            }
+        }
+        #endregion
+
         //Sign Out
     }
 }

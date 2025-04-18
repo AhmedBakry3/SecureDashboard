@@ -6,6 +6,7 @@ using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Models.Shared.Enums;
 using Demo.Presentation.ViewModels.DepartmentViewModel;
 using Demo.Presentation.ViewModels.EmployeeViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
