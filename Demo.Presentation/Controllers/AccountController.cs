@@ -1,4 +1,5 @@
 ﻿using Demo.DataAccess.Models.IdentityModel;
+using Demo.DataAccess.Models.UserManagerModel;
 using Demo.Presentation.Utilities;
 using Demo.Presentation.ViewModels.AccountViewModel;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +18,7 @@ namespace Demo.Presentation.Controllers
         {
             if (!ModelState.IsValid) return View(ViewModel);
 
-            var User = new ApplicationUser()
+            var User = new UserManager()
             {
                 FirstName = ViewModel.FirstName,
                 LastName = ViewModel.LastName,
@@ -141,8 +142,8 @@ namespace Demo.Presentation.Controllers
             if(!ModelState.IsValid) return View(viewmodel);
             else
             {
-                var Email = TempData["Email"]?.ToString();
-                var Token = TempData["Token"]?.ToString();
+                var Email = TempData["Email"] as string;
+                var Token = TempData["Token"] as string;
                 if (Email is not null && Token is not null)
                 {
                     var User = _userManager.FindByEmailAsync(Email).Result;

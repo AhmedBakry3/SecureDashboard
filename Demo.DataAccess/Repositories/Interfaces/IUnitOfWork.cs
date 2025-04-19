@@ -10,6 +10,8 @@ namespace Demo.DataAccess.Repositories.Interfaces
     {
         IEmployeeRepository EmployeeRepository { get; }
         IDepartmentRepository DepartmentRepository { get; }
+        IUserRepository UserManagerRepository { get; }
+        IRoleRepository roleManagerRepository { get; }
         int SaveChanges();
     }
 }

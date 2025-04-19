@@ -4,6 +4,7 @@ using Demo.DataAccess.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Demo.DataAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250419022524_CreateUser&RoleManagerRelationShip")]
+    partial class CreateUserRoleManagerRelationShip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace Demo.DataAccess.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Demo.DataAccess.Models.EmployeeModel.Employee", b =>
@@ -138,7 +141,7 @@ namespace Demo.DataAccess.Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Demo.DataAccess.Models.IdentityModel.ApplicationUser", b =>
@@ -239,7 +242,7 @@ namespace Demo.DataAccess.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("RoleName")
+                    b.Property<string>("RoleType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -364,6 +367,7 @@ namespace Demo.DataAccess.Data.Migrations
                     b.HasBaseType("Demo.DataAccess.Models.IdentityModel.ApplicationUser");
 
                     b.Property<string>("RolesId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasIndex("RolesId");
@@ -437,7 +441,8 @@ namespace Demo.DataAccess.Data.Migrations
                     b.HasOne("Demo.DataAccess.Models.RoleManagerModel.ApplicationRole", "Roles")
                         .WithMany("userManagers")
                         .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Roles");
                 });
