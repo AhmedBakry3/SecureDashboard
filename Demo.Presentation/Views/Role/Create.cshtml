@@ -1,0 +1,43 @@
+﻿@model RoleViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h4 class="mb-0">Create Role</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-controller="Role" asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row">
+                    <div class="form-group col-md-6 mb-4">
+                        <label asp-for="Id" class="form-label"></label>
+                        <input asp-for="Id" class="form-control"  />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+
+                    <!-- Role Name -->
+                    <div class="form-group col-md-6 mb-4">
+                        <label asp-for="roleName" class="form-label"></label>
+                        <select asp-for="roleName" asp-items="Html.GetEnumSelectList<RoleName>()" class="form-select">
+                            <option value="">-- Select Role --</option>
+                        </select>
+                        <span asp-validation-for="roleName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-success px-4">Save</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
