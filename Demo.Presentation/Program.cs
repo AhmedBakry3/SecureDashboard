@@ -7,6 +7,8 @@ using Demo.DataAccess.Models.IdentityModel;
 using Demo.DataAccess.Models.RoleManagerModel;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Demo.Presentation.Helper;
+using Demo.Presentation.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -51,10 +53,12 @@ namespace Demo.Presentation
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IUnitOfWork ,UnitOfWork>();
             builder.Services.AddTransient<IAttachmentService, AttachmentService>();
+            builder.Services.AddTransient<IMailService, MailService>(); 
             builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
             #endregion
 
             var app = builder.Build();

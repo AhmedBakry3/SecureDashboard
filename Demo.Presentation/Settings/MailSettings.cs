@@ -1,6 +1,6 @@
 ﻿namespace Demo.Presentation.Settings
 {
-    public class EmailSettings
+    public class MailSettings
     {
         public string Email { get; set; }
         public string DisplayName { get; set; }

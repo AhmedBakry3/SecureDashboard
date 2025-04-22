@@ -1,5 +1,6 @@
 ﻿using Demo.DataAccess.Models.IdentityModel;
 using Demo.DataAccess.Models.UserManagerModel;
+using Demo.Presentation.Helper;
 using Demo.Presentation.Utilities;
 using Demo.Presentation.ViewModels.AccountViewModel;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,7 @@ using System.Net.WebSockets;
 
 namespace Demo.Presentation.Controllers
 {
-    public class AccountController(UserManager<ApplicationUser> _userManager , SignInManager<ApplicationUser> _signInManager) : Controller
+    public class AccountController(UserManager<ApplicationUser> _userManager , SignInManager<ApplicationUser> _signInManager , IMailService _mailService) : Controller
     {
         #region Register Action
         [HttpGet]
@@ -110,7 +111,8 @@ namespace Demo.Presentation.Controllers
                         Subject = "Reset Password",
                         Body = ResetPassword
                     };
-                    EmailSettings.SendEmail(Email);
+                    //EmailSettings.SendEmail(Email);
+                    _mailService.send(Email);
                     return RedirectToAction(nameof(CheckYourInbox));
                 }
             }
