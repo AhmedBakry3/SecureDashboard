@@ -16,12 +16,12 @@ namespace Demo.Presentation.Helper
                 Subject = email.Subject,
             };
             mail.To.Add(MailboxAddress.Parse(email.To));
-            mail.From.Add( new MailboxAddress(_options.Value.Email , _options.Value.DisplayName));
+            mail.From.Add(new MailboxAddress(_options.Value.Email, _options.Value.DisplayName));
 
             var Builder = new BodyBuilder();
             Builder.TextBody = email.Body;
             mail.Body = Builder.ToMessageBody();
-            
+
             using var smtp = new SmtpClient();
 
             smtp.Connect(
@@ -30,7 +30,7 @@ namespace Demo.Presentation.Helper
                 MailKit.Security.SecureSocketOptions.StartTls
                 );
 
-            smtp.Authenticate(_options.Value.Email,_options.Value.Password);
+            smtp.Authenticate(_options.Value.Email, _options.Value.Password);
 
             smtp.Send(mail);
 
