@@ -9,10 +9,12 @@ using Demo.DataAccess.Models.Shared.Enums;
 using Demo.Presentation.ViewModels.EmployeeViewModel;
 using Demo.Presentation.ViewModels.RoleViewModel;
 using Demo.Presentation.ViewModels.UserViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
 {
+    [Authorize]
     public class RoleController(IRoleService _roleService,
                         IWebHostEnvironment _environment,
                         ILogger<UserController> _logger) : Controller
