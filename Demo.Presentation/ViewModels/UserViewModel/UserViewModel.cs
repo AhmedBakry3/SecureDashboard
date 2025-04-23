@@ -8,7 +8,5 @@ namespace Demo.Presentation.ViewModels.UserViewModel
         public string Fname { get; set; } = default!;
         public string Lname { get; set; } = default!;
         public string? PhoneNumber { get; set; }
-        public string RolesId { get; set; } 
-
     }
 }

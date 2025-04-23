@@ -15,6 +15,7 @@ namespace Demo.BusinessLogic.Services.AttachmentService
         const int MaxSize = 2_097_152;
         public string? Upload(IFormFile file, string FolderName)
         {
+            if (file is null || file.Length == 0) return null;
             //1.Check Extension
             var Extension = Path.GetExtension(file.FileName); //.png
             if (!AllowedExtension.Contains(Extension)) return null;

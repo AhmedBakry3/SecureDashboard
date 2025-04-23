@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using IMailService = Demo.Presentation.Helper.IMailService;
 using MailService = Demo.Presentation.Helper.MailService;
 
@@ -87,6 +88,8 @@ namespace Demo.Presentation
                 IConfiguration GoogleAuthSection = builder.Configuration.GetSection("Authentication:Google");
                 Options.ClientId = GoogleAuthSection["ClientId"];
                 Options.ClientSecret = GoogleAuthSection["ClientSecret"];
+                Options.CallbackPath = "/signin/google";
+
             }); 
             #endregion
 

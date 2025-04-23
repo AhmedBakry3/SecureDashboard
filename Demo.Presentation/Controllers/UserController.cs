@@ -8,11 +8,13 @@ using Demo.DataAccess.Models.Shared.Enums;
 using Demo.DataAccess.Models.UserManagerModel;
 using Demo.Presentation.ViewModels.EmployeeViewModel;
 using Demo.Presentation.ViewModels.UserViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
 {
+    [Authorize]
     public class UserController(IUserService _userService,
                 IWebHostEnvironment _environment,
                 ILogger<UserController> _logger) : Controller

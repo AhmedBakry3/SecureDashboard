@@ -4,6 +4,8 @@ using Demo.Presentation.Helper;
 using Demo.Presentation.Helper.SmsService;
 using Demo.Presentation.Utilities;
 using Demo.Presentation.ViewModels.AccountViewModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
@@ -65,7 +67,7 @@ namespace Demo.Presentation.Controllers
                         var Result = _signInManager.PasswordSignInAsync(User, viewModel.Password, viewModel.RememberMe, false).GetAwaiter().GetResult();
                         if (Result.Succeeded)
                         {
-                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                            return RedirectToAction("Index", "User");
                         }
                     }
                     else
@@ -78,6 +80,31 @@ namespace Demo.Presentation.Controllers
                 return View(viewModel);
 
             }
+        }
+        #endregion
+
+        #region Login with Google Action
+        public IActionResult GoogleLogin()
+        {
+            var googleLoginProperties = new AuthenticationProperties()
+            {
+                RedirectUri = Url.Action(nameof(GoogleResponse))
+            };
+            return Challenge(googleLoginProperties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var Result = HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme).Result;
+
+            var Claims = Result.Principal.Identities.FirstOrDefault().Claims.Select(Claim => new
+            {
+                Claim.Issuer,
+                Claim.OriginalIssuer,
+                Claim.Type,
+                Claim.Value
+            });
+            return RedirectToAction("Index" , "User");
         }
         #endregion
 
