@@ -58,8 +58,6 @@ The application follows important **design patterns** and **architectural patter
 - **MimeKit**: For creating and parsing MIME messages (used with MailKit for email content handling).
 - **Twilio**: For sending SMS messages (e.g., for password reset via SMS).
 - **Proxies for Lazy Loading**: Implements proxy-based lazy loading for efficient data loading, particularly useful for relationships like **Employee-Department**.
-- **DTOs**: Used for transferring data between layers while maintaining separation of concerns and preventing overexposure of entity data.
-- **ViewModels**: Used to structure data for the presentation layer, providing a clear representation of the data required for views.
 
 ---
 
