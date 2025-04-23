@@ -1,0 +1,33 @@
+﻿@model RoleDetailsDto
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">@Model.RoleName Details</h1>
+
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">General Information</h4>
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label asp-for="Id" class="form-label fw-bold"></label>
+                    <input asp-for="Id" class="form-control form-control-lg" readonly />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="RoleName" class="form-label fw-bold"></label>
+                    <input asp-for="RoleName" class="form-control form-control-lg" readonly />
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+                <a asp-action="Index" class="btn btn-outline-dark">Back To list</a>
+            </div>
+        </div>
+    </div>
+</div>

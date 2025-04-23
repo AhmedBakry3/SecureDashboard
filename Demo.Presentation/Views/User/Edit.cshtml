@@ -1,0 +1,46 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="my-5 text-center">Edit @Model.Fname User</h1>
+
+<div class="card shadow-lg w-75 mx-auto">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">User Information</h4>
+    </div>
+
+    <div class="card-body">
+        <form method="post" asp-controller="User" asp-action="Edit" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <label asp-for="Fname" class="form-label"></label>
+                    <input asp-for="Fname" class="form-control" />
+                    <span asp-validation-for="Fname" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Lname" class="form-label"></label>
+                    <input asp-for="Lname" class="form-control" />
+                    <span asp-validation-for="Lname" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-controller="User" asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+                <input type="submit" value="Save" class="btn btn-success px-4" />
+            </div>
+        </form>
+    </div>
+</div>

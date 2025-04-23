@@ -1,0 +1,47 @@
+﻿@model UserDetailsDto
+@{
+    ViewData["Title"] = "Delete User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="my-5 text-center text-danger">Delete User</h1>
+
+<div class="card shadow-lg w-75 mx-auto mb-5">
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">Are You Sure You Want To Delete @Model.Fname ?</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Id" class="form-label fw-bold"></label>
+                <input asp-for="Id" class="form-control" readonly />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Fname" class="form-label fw-bold"></label>
+                <input asp-for="Fname" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Lname" class="form-label fw-bold"></label>
+                <input asp-for="Lname" class="form-control" readonly />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="PhoneNumber" class="form-label fw-bold"></label>
+                <input asp-for="PhoneNumber" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label fw-bold"></label>
+            <input asp-for="Email" class="form-control" readonly />
+        </div>
+
+        <form method="post" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="mt-4 d-flex justify-content-between">
+            <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
+            <input type="submit" value="Delete" class="btn btn-danger px-4" />
+        </form>
+    </div>
+</div>
