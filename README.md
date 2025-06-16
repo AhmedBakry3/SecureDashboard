@@ -1,4 +1,4 @@
-# Demo Project - ASP.NET Core MVC with User and Account Management
+# SecureDashboard (User Management System) – ASP.NET Core MVC
 
 This project demonstrates an **ASP.NET Core MVC** application with complete **User Management**, **Role Management**, **Employee Management**, and **Account Management** functionality. It includes user profile management (CRUD operations) and account management for user registration, login, and password recovery. The project also incorporates role-based access control, employee and department management, **Google Authentication**, **Password Reset via Email/SMS**, and handling **User CRUD operations**, and handling User CRUD operations. Lazy Loading with Entity Framework Core (using proxies) is implemented for efficient data retrieval, particularly for relationships like Employee-Department.
 The application follows important **design patterns** and **architectural patterns** to ensure maintainability, scalability, and clean code practices. **DTOs** (Data Transfer Objects) and **ViewModels** are used for data abstraction and structuring data in a way that suits the presentation layer.
